@@ -1,0 +1,86 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Header from "../components/Header.astro";
+import Hero from "../components/Hero.astro";
+import About from "../components/About.astro";
+import ProjectCard from "../components/ProjectCard.astro";
+import Footer from "../components/Footer.astro";
+
+const projects = [
+  {
+    title: "CloudSync Dashboard",
+    description:
+      "A real-time cloud infrastructure monitoring dashboard with live metrics, alerting, and team collaboration features. Built for scale with server-sent events.",
+    techStack: ["React", "TypeScript", "Node.js", "PostgreSQL", "Redis"],
+    liveUrl: "https://cloudsync.demo.dev",
+    githubUrl: "https://github.com/johndoe/cloudsync",
+  },
+  {
+    title: "Markdown Studio",
+    description:
+      "A distraction-free markdown editor with live preview, syntax highlighting, and export to PDF/HTML. Features vim keybindings and custom themes.",
+    techStack: ["Next.js", "TypeScript", "Tailwind CSS", "MDX"],
+    liveUrl: "https://markdownstudio.demo.dev",
+    githubUrl: "https://github.com/johndoe/markdown-studio",
+  },
+  {
+    title: "DevPay API",
+    description:
+      "A developer-first payment processing API with comprehensive documentation, SDKs for 5 languages, and a sandbox environment for testing.",
+    techStack: ["Python", "FastAPI", "Stripe", "Docker", "AWS"],
+    liveUrl: "https://devpay.demo.dev",
+    githubUrl: "https://github.com/johndoe/devpay",
+  },
+  {
+    title: "Pixel Perfect",
+    description:
+      "An AI-powered design-to-code tool that converts Figma designs into clean, accessible React components with responsive layouts.",
+    techStack: ["React", "Python", "TensorFlow", "Figma API"],
+    githubUrl: "https://github.com/johndoe/pixel-perfect",
+  },
+];
+---
+
+<BaseLayout>
+  <Header />
+
+  <main>
+    <Hero />
+
+    <About />
+
+    <!-- Projects Section -->
+    <section id="projects" class="px-6 py-24 lg:py-32">
+      <div class="mx-auto max-w-5xl">
+        <div class="mb-16">
+          <p
+            class="mb-2 text-sm font-medium tracking-widest text-[var(--color-accent)] uppercase"
+          >
+            Projects
+          </p>
+          <h2
+            class="text-3xl font-bold tracking-tight text-zinc-100 sm:text-4xl"
+          >
+            Selected Work
+          </h2>
+        </div>
+
+        <div class="grid gap-6 sm:grid-cols-2">
+          {
+            projects.map((project) => (
+              <ProjectCard
+                title={project.title}
+                description={project.description}
+                techStack={project.techStack}
+                liveUrl={project.liveUrl}
+                githubUrl={project.githubUrl}
+              />
+            ))
+          }
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</BaseLayout>

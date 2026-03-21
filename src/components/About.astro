@@ -1,0 +1,67 @@
+---
+const skills = [
+  "Java",
+  "Javascript",
+  "Typescript",
+  "Python",
+  "C#",
+  "Docker",
+  "Kubernetes",
+  "MySQL",
+  "Postgres",
+  "MongoDB",
+  "Redis",
+  "Git",
+];
+---
+
+<section id="about" class="px-6 py-24 lg:py-32">
+  <div class="mx-auto max-w-5xl">
+    <div class="mb-16">
+      <p
+        class="mb-2 text-sm font-medium tracking-widest text-[var(--color-accent)] uppercase"
+      >
+        About Me
+      </p>
+      <h2 class="text-3xl font-bold tracking-tight text-zinc-100 sm:text-4xl">
+        Background & Skills
+      </h2>
+    </div>
+
+    <div class="grid gap-16 lg:grid-cols-2 lg:gap-20">
+      <!-- Bio -->
+      <div>
+        <p class="mb-5 leading-relaxed text-zinc-400">
+          I'm a full-stack developer with 5+ years of experience building web
+          applications that are fast, accessible, and a pleasure to use. I
+          specialize in the modern JavaScript ecosystem, with deep knowledge of
+          React, Node.js, and cloud infrastructure.
+        </p>
+        <p class="leading-relaxed text-zinc-400">
+          When I'm not coding, you'll find me contributing to open-source
+          projects, writing technical articles, or exploring new technologies. I
+          believe in writing clean, maintainable code and delivering exceptional
+          user experiences.
+        </p>
+      </div>
+
+      <!-- Skills -->
+      <div>
+        <h3
+          class="mb-6 text-sm font-semibold tracking-widest text-zinc-500 uppercase"
+        >
+          Core Technologies
+        </h3>
+        <div class="flex flex-wrap gap-2.5">
+          {
+            skills.map((skill) => (
+              <span class="rounded-lg border border-zinc-800 bg-zinc-900/50 px-3.5 py-1.5 text-sm font-medium text-zinc-300 transition-all duration-300 hover:border-[var(--color-accent)]/40 hover:text-zinc-100">
+                {skill}
+              </span>
+            ))
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
