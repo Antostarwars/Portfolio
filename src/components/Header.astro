@@ -1,33 +1,44 @@
 ---
+import type { Lang } from "../i18n/translations";
+import { t, languages, getLocalizedPath } from "../i18n/translations";
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const otherLang = lang === "en" ? "it" : "en";
+
 const navLinks = [
-  { label: "About", href: "#about" },
-  { label: "Projects", href: "#projects" },
-  { label: "Contact", href: "#contact" },
+  { label: t(lang, "nav.about"), href: "#about" },
+  { label: t(lang, "nav.experience"), href: "#experience" },
+  { label: t(lang, "nav.projects"), href: "#projects" },
+  { label: t(lang, "nav.contact"), href: "#contact" },
 ];
 ---
 
 <header
-  class="fixed top-0 left-0 right-0 z-50 border-b border-zinc-800/50 bg-zinc-950/80 backdrop-blur-lg"
+  class="theme-nav-bg fixed top-0 left-0 right-0 z-50 border-b theme-border backdrop-blur-lg"
 >
   <nav
     class="mx-auto flex max-w-5xl items-center justify-between px-6 py-4"
     aria-label="Main navigation"
   >
     <a
-      href="/"
-      class="text-lg font-semibold tracking-tight text-zinc-100 transition-colors duration-300 hover:text-[var(--color-accent)]"
+      href={getLocalizedPath(lang)}
+      class="text-lg font-semibold tracking-tight theme-text transition-colors duration-300 hover:text-[var(--color-accent)]"
     >
       ADR<span class="text-[var(--color-accent)]">.</span>
     </a>
 
     <!-- Desktop nav -->
-    <ul class="hidden items-center gap-8 md:flex">
+    <ul class="hidden items-center gap-6 md:flex">
       {
         navLinks.map((link) => (
           <li>
             <a
               href={link.href}
-              class="text-sm font-medium text-zinc-400 transition-colors duration-300 hover:text-zinc-100"
+              class="text-sm font-medium theme-text-secondary transition-colors duration-300 hover:theme-text"
             >
               {link.label}
             </a>
@@ -39,56 +50,156 @@ const navLinks = [
           href="/resume.pdf"
           target="_blank"
           rel="noopener noreferrer"
-          class="rounded-lg border border-zinc-700 px-4 py-1.5 text-sm font-medium text-zinc-300 transition-all duration-300 hover:border-[var(--color-accent)] hover:text-[var(--color-accent)]"
-          aria-label="Download resume (PDF)"
+          class="rounded-lg border theme-border px-4 py-1.5 text-sm font-medium theme-text-secondary transition-all duration-300 hover:border-[var(--color-accent)] hover:text-[var(--color-accent)]"
+          aria-label={lang === "it" ? "Scarica curriculum (PDF)" : "Download resume (PDF)"}
         >
-          Resume
+          {t(lang, "nav.resume")}
         </a>
+      </li>
+
+      <!-- Language switcher -->
+      <li>
+        <a
+          href={getLocalizedPath(otherLang)}
+          class="rounded-lg border theme-border px-3 py-1.5 text-sm font-medium theme-text-secondary transition-all duration-300 hover:border-[var(--color-accent)] hover:text-[var(--color-accent)]"
+          aria-label={`Switch to ${languages[otherLang]}`}
+        >
+          {otherLang.toUpperCase()}
+        </a>
+      </li>
+
+      <!-- Theme toggle -->
+      <li>
+        <button
+          id="theme-toggle"
+          class="flex items-center justify-center rounded-lg border theme-border p-2 theme-text-secondary transition-all duration-300 hover:border-[var(--color-accent)] hover:text-[var(--color-accent)]"
+          aria-label="Toggle dark/light theme"
+        >
+          <!-- Sun icon (shown in dark mode) -->
+          <svg
+            id="sun-icon"
+            class="h-4 w-4"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            aria-hidden="true"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="1.5"
+              d="M12 3v2.25m6.364.386l-1.591 1.591M21 12h-2.25m-.386 6.364l-1.591-1.591M12 18.75V21m-4.773-4.227l-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z"
+            ></path>
+          </svg>
+          <!-- Moon icon (shown in light mode) -->
+          <svg
+            id="moon-icon"
+            class="hidden h-4 w-4"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            aria-hidden="true"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="1.5"
+              d="M21.752 15.002A9.718 9.718 0 0118 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 003 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 009.002-5.998z"
+            ></path>
+          </svg>
+        </button>
       </li>
     </ul>
 
     <!-- Mobile menu button -->
-    <button
-      id="mobile-menu-btn"
-      class="flex items-center justify-center rounded-lg p-2 text-zinc-400 transition-colors duration-300 hover:text-zinc-100 md:hidden"
-      aria-label="Toggle navigation menu"
-      aria-expanded="false"
-    >
-      <svg
-        id="menu-icon"
-        class="h-5 w-5"
-        fill="none"
-        stroke="currentColor"
-        viewBox="0 0 24 24"
-        aria-hidden="true"
+    <div class="flex items-center gap-3 md:hidden">
+      <!-- Mobile language switcher -->
+      <a
+        href={getLocalizedPath(otherLang)}
+        class="rounded-lg border theme-border px-2.5 py-1.5 text-xs font-medium theme-text-secondary transition-all duration-300 hover:border-[var(--color-accent)] hover:text-[var(--color-accent)]"
+        aria-label={`Switch to ${languages[otherLang]}`}
       >
-        <path
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="1.5"
-          d="M3.75 9h16.5m-16.5 6.75h16.5"></path>
-      </svg>
-      <svg
-        id="close-icon"
-        class="hidden h-5 w-5"
-        fill="none"
-        stroke="currentColor"
-        viewBox="0 0 24 24"
-        aria-hidden="true"
+        {otherLang.toUpperCase()}
+      </a>
+
+      <!-- Mobile theme toggle -->
+      <button
+        id="theme-toggle-mobile"
+        class="flex items-center justify-center rounded-lg border theme-border p-2 theme-text-secondary transition-all duration-300 hover:border-[var(--color-accent)] hover:text-[var(--color-accent)]"
+        aria-label="Toggle dark/light theme"
       >
-        <path
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="1.5"
-          d="M6 18L18 6M6 6l12 12"></path>
-      </svg>
-    </button>
+        <svg
+          class="sun-icon-m h-4 w-4"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+          aria-hidden="true"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="1.5"
+            d="M12 3v2.25m6.364.386l-1.591 1.591M21 12h-2.25m-.386 6.364l-1.591-1.591M12 18.75V21m-4.773-4.227l-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z"
+          ></path>
+        </svg>
+        <svg
+          class="moon-icon-m hidden h-4 w-4"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+          aria-hidden="true"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="1.5"
+            d="M21.752 15.002A9.718 9.718 0 0118 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 003 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 009.002-5.998z"
+          ></path>
+        </svg>
+      </button>
+
+      <button
+        id="mobile-menu-btn"
+        class="flex items-center justify-center rounded-lg p-2 theme-text-secondary transition-colors duration-300 hover:theme-text"
+        aria-label="Toggle navigation menu"
+        aria-expanded="false"
+      >
+        <svg
+          id="menu-icon"
+          class="h-5 w-5"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+          aria-hidden="true"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="1.5"
+            d="M3.75 9h16.5m-16.5 6.75h16.5"></path>
+        </svg>
+        <svg
+          id="close-icon"
+          class="hidden h-5 w-5"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+          aria-hidden="true"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="1.5"
+            d="M6 18L18 6M6 6l12 12"></path>
+        </svg>
+      </button>
+    </div>
   </nav>
 
   <!-- Mobile menu -->
   <div
     id="mobile-menu"
-    class="hidden border-t border-zinc-800/50 bg-zinc-950/95 backdrop-blur-lg md:hidden"
+    class="theme-mobile-bg hidden border-t theme-border backdrop-blur-lg md:hidden"
   >
     <ul class="flex flex-col gap-1 px-6 py-4">
       {
@@ -96,7 +207,7 @@ const navLinks = [
           <li>
             <a
               href={link.href}
-              class="mobile-nav-link block rounded-lg px-3 py-2.5 text-sm font-medium text-zinc-400 transition-colors duration-300 hover:bg-zinc-800/50 hover:text-zinc-100"
+              class="mobile-nav-link block rounded-lg px-3 py-2.5 text-sm font-medium theme-text-secondary transition-colors duration-300 hover:theme-text"
             >
               {link.label}
             </a>
@@ -108,10 +219,10 @@ const navLinks = [
           href="/resume.pdf"
           target="_blank"
           rel="noopener noreferrer"
-          class="mt-2 block rounded-lg border border-zinc-700 px-3 py-2.5 text-center text-sm font-medium text-zinc-300 transition-all duration-300 hover:border-[var(--color-accent)] hover:text-[var(--color-accent)]"
-          aria-label="Download resume (PDF)"
+          class="mt-2 block rounded-lg border theme-border px-3 py-2.5 text-center text-sm font-medium theme-text-secondary transition-all duration-300 hover:border-[var(--color-accent)] hover:text-[var(--color-accent)]"
+          aria-label={lang === "it" ? "Scarica curriculum (PDF)" : "Download resume (PDF)"}
         >
-          Resume
+          {t(lang, "nav.resume")}
         </a>
       </li>
     </ul>
@@ -119,6 +230,7 @@ const navLinks = [
 </header>
 
 <script>
+  // Mobile menu toggle
   const btn = document.getElementById("mobile-menu-btn");
   const menu = document.getElementById("mobile-menu");
   const menuIcon = document.getElementById("menu-icon");
@@ -132,7 +244,6 @@ const navLinks = [
     btn?.setAttribute("aria-expanded", String(!isOpen));
   });
 
-  // Close on mobile link click
   document.querySelectorAll(".mobile-nav-link").forEach((link) => {
     link.addEventListener("click", () => {
       menu?.classList.add("hidden");
@@ -141,4 +252,33 @@ const navLinks = [
       btn?.setAttribute("aria-expanded", "false");
     });
   });
+
+  // Theme toggle
+  function updateIcons() {
+    const isDark = document.documentElement.classList.contains("dark");
+    // Desktop icons
+    document.getElementById("sun-icon")?.classList.toggle("hidden", !isDark);
+    document.getElementById("moon-icon")?.classList.toggle("hidden", isDark);
+    // Mobile icons
+    document.querySelector(".sun-icon-m")?.classList.toggle("hidden", !isDark);
+    document.querySelector(".moon-icon-m")?.classList.toggle("hidden", isDark);
+  }
+
+  function toggleTheme() {
+    const isDark = document.documentElement.classList.contains("dark");
+    document.documentElement.classList.toggle("dark", !isDark);
+    document.documentElement.classList.toggle("light", isDark);
+    localStorage.setItem("theme", isDark ? "light" : "dark");
+    updateIcons();
+  }
+
+  document
+    .getElementById("theme-toggle")
+    ?.addEventListener("click", toggleTheme);
+  document
+    .getElementById("theme-toggle-mobile")
+    ?.addEventListener("click", toggleTheme);
+
+  // Initialize icons on load
+  updateIcons();
 </script>

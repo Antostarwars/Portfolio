@@ -1,0 +1,118 @@
+---
+import type { Lang } from "../i18n/translations";
+import { t } from "../i18n/translations";
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+
+const experiences = [
+  {
+    role: lang === "it" ? "NOC Technician" : "NOC Technician",
+    company: "Zal Telecomunicazioni",
+    period: lang === "it" ? "Mag 2025 — Giu 2025" : "May 2025 - Jun 2025",
+    current: false,
+    description:
+      lang === "it"
+        ? "Configurazione e manutenzione di infrastrutture di rete aziendali, incluse VLAN, routing, switching e servizi firewall. Monitoraggio della rete e risoluzione di problemi di connettività."
+        : "Configuration and maintenance of enterprise network infrastructures, including VLANs, routing, switching, and firewall services. Network monitoring and connectivity troubleshooting.",
+    skills: ["Mikrotik", "VLAN", "Firewall", "Monitoring"],
+  },
+  {
+    role: "Software Developer",
+    company: "Freelancer",
+    period: lang === "it" ? "Giu 2021 — Giu 2025" : "Jun 2025 — Jun 2025",
+    current: false,
+    description:
+      lang === "it"
+        ? "Sviluppo di applicazioni web e software per clienti, con focus su performance, Sicurezza e UI/UX."
+        : "Development of web applications and software for clients, focusing on performance, security and UI/UX.",
+    skills: ["Javascript", "Docker", "MySQL", "Git"],
+  },
+];
+---
+
+<section id="experience" class="px-6 py-24 lg:py-32">
+  <div class="mx-auto max-w-5xl">
+    <div class="mb-16">
+      <p
+        class="mb-2 text-sm font-medium tracking-widest text-[var(--color-accent)] uppercase"
+      >
+        {t(lang, "experience.label")}
+      </p>
+      <h2 class="text-3xl font-bold tracking-tight theme-text sm:text-4xl">
+        {t(lang, "experience.title")}
+      </h2>
+    </div>
+
+    <!-- Timeline -->
+    <div class="relative">
+      <!-- Vertical line -->
+      <div
+        class="absolute top-0 left-4 h-full w-px bg-[var(--border-primary)] md:left-8"
+        aria-hidden="true"
+      >
+      </div>
+
+      <div class="space-y-12">
+        {
+          experiences.map((exp) => (
+            <div class="relative pl-12 md:pl-20">
+              {/* Timeline dot */}
+              <div
+                class:list={[
+                  "absolute top-1.5 left-2.5 h-3 w-3 rounded-full border-2 md:left-6.5",
+                  exp.current
+                    ? "border-[var(--color-accent)] bg-[var(--color-accent)] shadow-md shadow-[var(--color-accent)]/30"
+                    : "border-[var(--border-hover)] bg-[var(--bg-secondary)]",
+                ]}
+                aria-hidden="true"
+              />
+
+              <div class="rounded-2xl border theme-border bg-[var(--bg-card)] p-6 transition-all duration-300 hover:bg-[var(--bg-card-hover)] hover:shadow-lg">
+                <div class="mb-3 flex flex-col gap-1 sm:flex-row sm:items-center sm:justify-between">
+                  <div>
+                    <h3 class="text-lg font-semibold theme-text">{exp.role}</h3>
+                    <p class="text-sm font-medium text-[var(--color-accent)]">
+                      {exp.company}
+                    </p>
+                  </div>
+                  <span
+                    class:list={[
+                      "mt-1 inline-flex w-fit items-center gap-1.5 rounded-full px-3 py-1 text-xs font-medium sm:mt-0",
+                      exp.current
+                        ? "bg-[var(--color-accent)]/10 text-[var(--color-accent)]"
+                        : "bg-[var(--bg-secondary)] theme-text-muted",
+                    ]}
+                  >
+                    {exp.current && (
+                      <span
+                        class="h-1.5 w-1.5 animate-pulse rounded-full bg-[var(--color-accent)]"
+                        aria-hidden="true"
+                      />
+                    )}
+                    {exp.period}
+                  </span>
+                </div>
+
+                <p class="mb-4 text-sm leading-relaxed theme-text-secondary">
+                  {exp.description}
+                </p>
+
+                <div class="flex flex-wrap gap-2">
+                  {exp.skills.map((skill) => (
+                    <span class="rounded-md bg-[var(--bg-secondary)] px-2.5 py-1 text-xs font-medium theme-text-muted">
+                      {skill}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+</section>

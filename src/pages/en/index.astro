@@ -1,0 +1,90 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Header from "../../components/Header.astro";
+import Hero from "../../components/Hero.astro";
+import About from "../../components/About.astro";
+import Experience from "../../components/Experience.astro";
+import ProjectCard from "../../components/ProjectCard.astro";
+import Footer from "../../components/Footer.astro";
+import { t } from "../../i18n/translations";
+import type { Lang } from "../../i18n/translations";
+
+const lang: Lang = "en";
+
+const projects = [
+  {
+    title: "Project 1",
+    description: "Example Description 1",
+    techStack: ["React", "TypeScript", "Node.js", "PostgreSQL", "Redis"],
+    liveUrl: "https://example.demo.dev",
+    githubUrl: "https://github.com/example",
+  },
+  {
+    title: "Project 2",
+    description: "Example Description 2",
+    techStack: ["React", "TypeScript", "Node.js", "PostgreSQL", "Redis"],
+    liveUrl: "https://example.demo.dev",
+    githubUrl: "https://github.com/example",
+  },
+  {
+    title: "Project 3",
+    description: "Example Description 3",
+    techStack: ["React", "TypeScript", "Node.js", "PostgreSQL", "Redis"],
+    liveUrl: "https://example.demo.dev",
+    githubUrl: "https://github.com/example",
+  },
+  {
+    title: "Project 4",
+    description: "Example Description 4",
+    techStack: ["React", "TypeScript", "Node.js", "PostgreSQL", "Redis"],
+    liveUrl: "https://example.demo.dev",
+    githubUrl: "https://github.com/example",
+  },
+];
+---
+
+<BaseLayout lang={lang}>
+  <Header lang={lang} />
+
+  <main>
+    <Hero lang={lang} />
+
+    <About lang={lang} />
+
+    <Experience lang={lang} />
+
+    <!-- Projects Section -->
+    <section id="projects" class="px-6 py-24 lg:py-32">
+      <div class="mx-auto max-w-5xl">
+        <div class="mb-16">
+          <p
+            class="mb-2 text-sm font-medium tracking-widest text-[var(--color-accent)] uppercase"
+          >
+            {t(lang, "projects.label")}
+          </p>
+          <h2
+            class="text-3xl font-bold tracking-tight theme-text sm:text-4xl"
+          >
+            {t(lang, "projects.title")}
+          </h2>
+        </div>
+
+        <div class="grid gap-6 sm:grid-cols-2">
+          {
+            projects.map((project) => (
+              <ProjectCard
+                title={project.title}
+                description={project.description}
+                techStack={project.techStack}
+                liveUrl={project.liveUrl}
+                githubUrl={project.githubUrl}
+              />
+            ))
+          }
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer lang={lang} />
+</BaseLayout>

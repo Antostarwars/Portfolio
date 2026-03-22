@@ -1,4 +1,13 @@
 ---
+import type { Lang } from "../i18n/translations";
+import { t } from "../i18n/translations";
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+
 const skills = [
   "Java",
   "Javascript",
@@ -29,40 +38,35 @@ const skills = [
       <p
         class="mb-2 text-sm font-medium tracking-widest text-[var(--color-accent)] uppercase"
       >
-        About Me
+        {t(lang, "about.label")}
       </p>
-      <h2 class="text-3xl font-bold tracking-tight text-zinc-100 sm:text-4xl">
-        Background & Skills
+      <h2 class="text-3xl font-bold tracking-tight theme-text sm:text-4xl">
+        {t(lang, "about.title")}
       </h2>
     </div>
 
     <div class="grid gap-16 lg:grid-cols-2 lg:gap-20">
       <!-- Bio -->
       <div>
-        <p class="mb-5 leading-relaxed text-zinc-400">
-          I'm a Computer Science student with a great passion for Networks,
-          Linux, and Web Development. I love designing and troubleshooting
-          network infrastructures — from campus LANs and data center fabrics
-          to WAN and cloud interconnects.
+        <p class="mb-5 leading-relaxed theme-text-secondary">
+          {t(lang, "about.bio1")}
         </p>
-        <p class="leading-relaxed text-zinc-400">
-          On the dev side, I build web applications, automation tools, and
-          infrastructure-as-code pipelines. I'm always eager to learn new
-          technologies and turn complex problems into clean, elegant solutions.
+        <p class="leading-relaxed theme-text-secondary">
+          {t(lang, "about.bio2")}
         </p>
       </div>
 
       <!-- Skills -->
       <div>
         <h3
-          class="mb-6 text-sm font-semibold tracking-widest text-zinc-500 uppercase"
+          class="mb-6 text-sm font-semibold tracking-widest theme-text-muted uppercase"
         >
-          Core Technologies
+          {t(lang, "about.skills_label")}
         </h3>
         <div class="flex flex-wrap gap-2.5">
           {
             skills.map((skill) => (
-              <span class="rounded-lg border border-zinc-800 bg-zinc-900/50 px-3.5 py-1.5 text-sm font-medium text-zinc-300 transition-all duration-300 hover:border-[var(--color-accent)]/40 hover:text-zinc-100">
+              <span class="rounded-lg border theme-border bg-[var(--bg-card)] px-3.5 py-1.5 text-sm font-medium theme-text-secondary transition-all duration-300 hover:border-[var(--color-accent)]/40 hover:theme-text">
                 {skill}
               </span>
             ))

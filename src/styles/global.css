@@ -12,17 +12,64 @@ html {
   scroll-padding-top: 5rem;
 }
 
-/* Custom scrollbar */
-::-webkit-scrollbar {
-  width: 6px;
+/* ─── Dark theme (default) ─── */
+html.dark {
+  --bg-primary: #09090b;
+  --bg-secondary: #18181b;
+  --bg-card: rgba(24, 24, 27, 0.3);
+  --bg-card-hover: rgba(24, 24, 27, 0.6);
+  --border-primary: rgba(39, 39, 42, 0.5);
+  --border-hover: #3f3f46;
+  --text-primary: #f4f4f5;
+  --text-secondary: #a1a1aa;
+  --text-muted: #71717a;
+  --nav-bg: rgba(9, 9, 11, 0.8);
+  --mobile-bg: rgba(9, 9, 11, 0.95);
+  color-scheme: dark;
 }
-::-webkit-scrollbar-track {
-  background: #18181b;
+
+/* ─── Light theme ─── */
+html.light {
+  --bg-primary: #ffffff;
+  --bg-secondary: #f4f4f5;
+  --bg-card: rgba(244, 244, 245, 0.5);
+  --bg-card-hover: rgba(244, 244, 245, 0.8);
+  --border-primary: rgba(228, 228, 231, 0.8);
+  --border-hover: #d4d4d8;
+  --text-primary: #18181b;
+  --text-secondary: #52525b;
+  --text-muted: #a1a1aa;
+  --nav-bg: rgba(255, 255, 255, 0.8);
+  --mobile-bg: rgba(255, 255, 255, 0.95);
+  color-scheme: light;
 }
-::-webkit-scrollbar-thumb {
-  background: #3f3f46;
-  border-radius: 3px;
+
+/* Apply theme variables */
+html {
+  background-color: var(--bg-primary);
+  color: var(--text-secondary);
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
-::-webkit-scrollbar-thumb:hover {
-  background: #52525b;
-}
+
+/* Custom scrollbar — dark */
+html.dark ::-webkit-scrollbar { width: 6px; }
+html.dark ::-webkit-scrollbar-track { background: #18181b; }
+html.dark ::-webkit-scrollbar-thumb { background: #3f3f46; border-radius: 3px; }
+html.dark ::-webkit-scrollbar-thumb:hover { background: #52525b; }
+
+/* Custom scrollbar — light */
+html.light ::-webkit-scrollbar { width: 6px; }
+html.light ::-webkit-scrollbar-track { background: #f4f4f5; }
+html.light ::-webkit-scrollbar-thumb { background: #d4d4d8; border-radius: 3px; }
+html.light ::-webkit-scrollbar-thumb:hover { background: #a1a1aa; }
+
+/* Theme-aware utility classes */
+.theme-bg { background-color: var(--bg-primary); }
+.theme-bg-secondary { background-color: var(--bg-secondary); }
+.theme-bg-card { background-color: var(--bg-card); }
+.theme-text { color: var(--text-primary); }
+.theme-text-secondary { color: var(--text-secondary); }
+.theme-text-muted { color: var(--text-muted); }
+.theme-border { border-color: var(--border-primary); }
+.theme-nav-bg { background-color: var(--nav-bg); }
+.theme-mobile-bg { background-color: var(--mobile-bg); }
