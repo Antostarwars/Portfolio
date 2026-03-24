@@ -13,32 +13,26 @@ const lang: Lang = "it";
 
 const projects = [
   {
-    title: "Project 1",
-    description: "Example Description 1",
-    techStack: ["React", "TypeScript", "Node.js", "PostgreSQL", "Redis"],
-    liveUrl: "https://example.demo.dev",
-    githubUrl: "https://github.com/example",
+    title: "GuardAI",
+    description:
+      "Una tecnologia indossabile basata su IA che fornisce agli utenti una guida in tempo reale degli ostacoli nelle loro vicinanze tramite riconoscimento visivo, trasmettendo feedback aptico tramite vibrazione per facilitare l'uso.",
+    techStack: [
+      "Python",
+      "TensorFlow",
+      "OpenCV",
+      "Flask",
+      "SQLite",
+      "Hardware",
+    ],
+    // liveUrl: "https://example.demo.dev",
+    // githubUrl: "https://github.com/example",
   },
   {
-    title: "Project 2",
-    description: "Example Description 2",
-    techStack: ["React", "TypeScript", "Node.js", "PostgreSQL", "Redis"],
-    liveUrl: "https://example.demo.dev",
-    githubUrl: "https://github.com/example",
-  },
-  {
-    title: "Project 3",
-    description: "Example Description 3",
-    techStack: ["React", "TypeScript", "Node.js", "PostgreSQL", "Redis"],
-    liveUrl: "https://example.demo.dev",
-    githubUrl: "https://github.com/example",
-  },
-  {
-    title: "Project 4",
-    description: "Example Description 4",
-    techStack: ["React", "TypeScript", "Node.js", "PostgreSQL", "Redis"],
-    liveUrl: "https://example.demo.dev",
-    githubUrl: "https://github.com/example",
+    title: "StarCreations Utils",
+    description:
+      "Un bot Discord sviluppato per il team di StarCreations. Gestisce ticket, blacklist, portfolio e altre funzionalità.",
+    techStack: ["Java", "JDA", "MongoDB", "Docker"],
+    githubUrl: "https://github.com/Antostarwars/StarCreationsUtils",
   },
 ];
 ---
@@ -66,9 +60,7 @@ const projects = [
           >
             {t(lang, "projects.label")}
           </p>
-          <h2
-            class="text-3xl font-bold tracking-tight theme-text sm:text-4xl"
-          >
+          <h2 class="text-3xl font-bold tracking-tight theme-text sm:text-4xl">
             {t(lang, "projects.title")}
           </h2>
         </div>
